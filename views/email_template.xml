@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- PAYMENT -->
+<!-- Mail template: Envoyer demande de validation payment -->
+
+       <record id="send_paiement_request_email_template" model="mail.template">
+            <field name="name">Demande de validation de paiement</field>
+            <field name="model_id" ref="complexe_validation.model_account_payment_request"/>
+            <field name="subject">DEMANDE DE VALIDATION DE PAIEMENT FOURNISSEUR</field>
+            <field name="body_html" type="html">
+<table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+<table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+<tbody>
+    <!-- HEADER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr><td valign="middle">
+                    <span style="font-size: 20px; font-weight: bold;">
+                        DEMANDE DE VALIDATION DE PAIEMENT FOURNISSEUR
+                    </span>
+                </td><td valign="middle" align="right">
+                    <img src="/logo.png?company=${user.company_id.id}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${user.company_id.name}"/>
+                </td></tr>
+                <tr><td colspan="2" style="text-align:center;">
+                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+
+    <!-- CONTENT -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr><td valign="top" style="font-size: 13px;">
+                    <div>
+                        Bonjour ${object.validator_id.display_name}, <br/><br/>
+                        ${ctx.get('current_user').display_name} vous demande de valider le paiement de la facture fournisseur N° <b>${ctx.get('payment_id').communication or '__'}</b> appartenant à <b>${ctx.get('payment_partner_id').display_name or '__'}.</b>
+                    </div><br/><br/>
+                    <div class="text-center">
+                        <a href="${ctx.get('base_url')}/web#id=${ctx.get('payment_id').id}&amp;model=account.payment&amp;view_type=form"><button class="btn btn-primary">Valider</button></a> <button class="btn btn-error">Réfuser</button>
+                    </div><br/><br/>
+                    Bien cordialement
+                </td></tr>
+                <tr><td style="text-align:center;">
+                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</td></tr>
+</table>
+            </field>
+            <field name="auto_delete" eval="True"/>
+            <field name="user_signature" eval="False"/>
+        </record>
+
+<!-- Mail template: Envoyer demande de validation payment -->
+
+       <record id="send_validation_request_email_template" model="mail.template">
+            <field name="name">Validation de paiement</field>
+            <field name="model_id" ref="complexe_validation.model_account_payment_request"/>
+            <field name="subject">VALIDATION DE PAIEMENT FOURNISSEUR</field>
+            <field name="body_html" type="html">
+<table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+<table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+<tbody>
+    <!-- HEADER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr><td valign="middle">
+                    <span style="font-size: 20px; font-weight: bold;">
+                        VALIDATION DE PAIEMENT FOURNISSEUR
+                    </span>
+                </td><td valign="middle" align="right">
+                    <img src="/logo.png?company=${user.company_id.id}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${user.company_id.name}"/>
+                </td></tr>
+                <tr><td colspan="2" style="text-align:center;">
+                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+
+    <!-- CONTENT -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr><td valign="top" style="font-size: 13px;">
+                    <div>
+                        Bonjour ${ctx.get('requester').display_name}, <br/><br/>
+                        Votre demande de paiement est validé.<br/>
+                    </div><br/><br/>
+                    <div class="text-center">
+                        <a href="${ctx.get('base_url')}/web#id=${ctx.get('payment_id').id}&amp;model=account.payment&amp;view_type=form">Cliquez ici pour ouvrir le dossier.</a>
+                    </div><br/><br/>
+                    Bien cordialement,
+                </td></tr>
+                <tr><td style="text-align:center;">
+                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</td></tr>
+</table>
+            </field>
+            <field name="auto_delete" eval="True"/>
+            <field name="user_signature" eval="False"/>
+        </record>
+
+
+        <!-- ACCOUNT MOVE send_account_move_request_email_template -->
+
+       <record id="send_account_move_request_email_template" model="mail.template">
+            <field name="name">Demande de validation de paiement (Account move)</field>
+            <field name="model_id" ref="complexe_validation.model_account_payment_request"/>
+            <field name="subject">DEMANDE DE VALIDATION DE PAIEMENT FOURNISSEUR</field>
+            <field name="body_html" type="html">
+<table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+<table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+<tbody>
+    <!-- HEADER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr><td valign="middle">
+                    <span style="font-size: 20px; font-weight: bold;">
+                        DEMANDE DE VALIDATION DE PAIEMENT FOURNISSEUR
+                    </span>
+                </td><td valign="middle" align="right">
+                    <img src="/logo.png?company=${user.company_id.id}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${user.company_id.name}"/>
+                </td></tr>
+                <tr><td colspan="2" style="text-align:center;">
+                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+
+    <!-- CONTENT -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr><td valign="top" style="font-size: 13px;">
+                    <div>
+                        Bonjour ${object.validator_id.display_name}, <br/><br/>
+                        ${ctx.get('current_user').display_name} vous demande de valider le paiement de la facture fournisseur N° <b>${ctx.get('move_id').name or '__'}</b> appartenant à <b>${ctx.get('move_partner_id').display_name or '__'}.</b>
+                    </div><br/><br/>
+                    <div class="text-center">
+                        <a href="${ctx.get('base_url')}/web#id=${ctx.get('move_id').id}&amp;model=account.move&amp;view_type=form"><button class="btn btn-primary">Valider</button></a> <button class="btn btn-error">Réfuser</button>
+                    </div><br/><br/>
+                    Bien cordialement
+                </td></tr>
+                <tr><td style="text-align:center;">
+                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</td></tr>
+</table>
+            </field>
+            <field name="auto_delete" eval="True"/>
+            <field name="user_signature" eval="False"/>
+        </record>
+
+        <!-- send_validation_move_request_email_template -->
+       <record id="send_validation_move_request_email_template" model="mail.template">
+            <field name="name">Validation de paiement(Account Move)</field>
+            <field name="model_id" ref="complexe_validation.model_account_payment_request"/>
+            <field name="subject">VALIDATION DE PAIEMENT FOURNISSEUR</field>
+            <field name="body_html" type="html">
+<table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+<table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+<tbody>
+    <!-- HEADER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr><td valign="middle">
+                    <span style="font-size: 20px; font-weight: bold;">
+                        VALIDATION DE PAIEMENT FOURNISSEUR
+                    </span>
+                </td><td valign="middle" align="right">
+                    <img src="/logo.png?company=${user.company_id.id}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${user.company_id.name}"/>
+                </td></tr>
+                <tr><td colspan="2" style="text-align:center;">
+                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+
+    <!-- CONTENT -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr><td valign="top" style="font-size: 13px;">
+                    <div>
+                        Bonjour ${ctx.get('requester').display_name}, <br/><br/>
+                        Votre demande de paiement est validé.<br/>
+                    </div><br/><br/>
+                    <div class="text-center">
+                        <a href="${ctx.get('base_url')}/web#id=${ctx.get('move_id').id}&amp;model=account.move&amp;view_type=form">Cliquez ici pour ouvrir le dossier.</a>
+                    </div><br/><br/>
+                    Bien cordialement,
+                </td></tr>
+                <tr><td style="text-align:center;">
+                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</td></tr>
+</table>
+            </field>
+            <field name="auto_delete" eval="True"/>
+            <field name="user_signature" eval="False"/>
+        </record>
+
+    </data>
+</odoo>
