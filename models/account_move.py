@@ -42,7 +42,7 @@ class AccountMoveRequest(models.Model):
 
     def send_move_req(self):
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        active_id = self.env.context.get('active_id')
+        active_id = self.env.context.get('move')
         if active_id:
             move_id = self.env['account.move'].sudo().browse(int(active_id))
             self.sudo().write({'move_id': move_id})

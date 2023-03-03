@@ -43,7 +43,7 @@ class AccountPaymentRequest(models.Model):
 
     def send_req(self):
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        active_id = self.env.context.get('active_id')
+        active_id = self.env.context.get('paye')
         if active_id:
             payment_id = self.env['account.payment'].sudo().browse(int(active_id))
             self.sudo().write({'payment_id': payment_id})

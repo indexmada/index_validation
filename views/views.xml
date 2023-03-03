@@ -16,7 +16,7 @@
             <field name="is_user_validator" invisible="1"/>
         </xpath>
         <xpath expr="//header/button[1]" position="before">
-            <button name="send_paiement_request" class="oe_highlight" attrs="{'invisible': ['|','|','|', ('partner_type', '!=', 'supplier'),('state', '!=', 'draft'),('validated', '=', True),('is_user_validator', '=', True)]}" string="Envoyer Demande" type="object"/>
+            <button name="send_paiement_request" class="oe_highlight" attrs="{'invisible': ['|','|','|', ('partner_type', '!=', 'supplier'),('state', '!=', 'draft'),('validated', '=', True),('is_user_validator', '=', True)]}" string="Envoyer Demande" type="object" context="{'paye': id}"/>
             <button name="new_post" class="oe_highlight" attrs="{'invisible': ['|','|','|',('is_user_validator', '=', False), ('state', '!=', 'draft'), ('partner_type', '!=', 'supplier'),('validated', '=', True)]}" string="Valider" type="object"/>
         </xpath>
       </field>
@@ -73,7 +73,7 @@
                 <field name="is_user_validator" invisible="1"/>
             </xpath>
             <xpath expr="//header/button[@name='action_post']" position="before">
-                <button name="send_request" class="oe_highlight" attrs="{'invisible': ['|','|','|', ('type', '!=', 'in_invoice'),('state', '!=', 'posted'),('validated', '=', True),('is_user_validator', '=', True)]}" string="Envoyer Demande" type="object"/>
+                <button name="send_request" class="oe_highlight" attrs="{'invisible': ['|','|','|', ('type', '!=', 'in_invoice'),('state', '!=', 'posted'),('validated', '=', True),('is_user_validator', '=', True)]}" string="Envoyer Demande" type="object" context="{'move': id}"/>
                 <button name="new_post_move" class="oe_highlight" attrs="{'invisible': ['|','|','|',('is_user_validator', '=', False), ('state', '!=', 'posted'), ('type', '!=', 'in_invoice'),('validated', '=', True)]}" string="Valider" type="object"/>
             </xpath>
         </field>
