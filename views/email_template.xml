@@ -121,7 +121,7 @@
 
        <record id="send_account_move_request_email_template" model="mail.template">
             <field name="name">Demande de validation de paiement (Account move)</field>
-            <field name="model_id" ref="complexe_validation.model_account_payment_request"/>
+            <field name="model_id" ref="complexe_validation.model_account_move_request"/>
             <field name="subject">DEMANDE DE VALIDATION DE PAIEMENT FOURNISSEUR</field>
             <field name="body_html" type="html">
 <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
@@ -177,7 +177,7 @@
         <!-- send_validation_move_request_email_template -->
        <record id="send_validation_move_request_email_template" model="mail.template">
             <field name="name">Validation de paiement(Account Move)</field>
-            <field name="model_id" ref="complexe_validation.model_account_payment_request"/>
+            <field name="model_id" ref="complexe_validation.model_account_move_request"/>
             <field name="subject">VALIDATION DE PAIEMENT FOURNISSEUR</field>
             <field name="body_html" type="html">
 <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
